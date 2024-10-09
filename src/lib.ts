@@ -126,7 +126,7 @@ export function totalCards(player: Player) {
 }
 
 export const HandKinds = ["hand", "faceUp", "faceDown"] as const;
-type HandKind = typeof HandKinds[number];
+type HandKind = (typeof HandKinds)[number];
 
 export function offHandLen(cards: OffHandCards) {
   return cards.filter((card) => card !== undefined).length;

@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { AnimatePresence, motion } from "framer-motion";
-import { Card as TCard, getRank, getSuite, Rank, Suite } from "../../lib";
+import { getRank, getSuite, Rank, Suite, Card as TCard } from "../../lib";
 
 export interface CardProps {
   card?: TCard;
@@ -44,7 +44,7 @@ export default function Card(props: CardProps) {
           "select-none",
           !props.noShadow && "shadow-lg shadow-zinc-500/40 drop-shadow-xl",
           isFace && "rounded-lg border-white bg-white p-1",
-          props.withSelector && "rounded-t-none rounded-b-lg bg-white"
+          props.withSelector && "rounded-b-lg rounded-t-none bg-white"
         )}
         src={src}
       />

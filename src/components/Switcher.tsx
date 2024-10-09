@@ -1,9 +1,9 @@
-import { createElement, useContext } from "react";
 import { useSelector } from "@xstate/react";
-import { GlobalStateContext } from "./providers/GlobalStateProvider";
-import UISwitcher from "./ui/Switcher";
+import { createElement, useContext } from "react";
 import { offHandLen } from "../lib";
 import { Player } from "../state/machines/zhithead.machine";
+import { GlobalStateContext } from "./providers/GlobalStateProvider";
+import UISwitcher from "./ui/Switcher";
 
 interface SwitcherProps {
   player: Player;

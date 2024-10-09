@@ -11,7 +11,7 @@ import {
 } from "react";
 
 const Breakpoints = ["sm", "md", "lg", "xl", "2xl"] as const;
-type Breakpoint = typeof Breakpoints[number];
+type Breakpoint = (typeof Breakpoints)[number];
 
 interface BreakpointsContext {
   (breakpoint: Breakpoint): boolean;

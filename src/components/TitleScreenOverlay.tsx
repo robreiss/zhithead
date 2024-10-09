@@ -91,7 +91,7 @@ export default function TitleScreenOverlay(props: TitleScreenOverlayProps) {
           href="https://l.yatko.dev/zh-src"
           target="_blank"
           rel="noopener noreferrer"
-          className="absolute right-0 bottom-0 p-2 font-mono text-xs tracking-tighter text-zinc-400 underline"
+          className="absolute bottom-0 right-0 p-2 font-mono text-xs tracking-tighter text-zinc-400 underline"
         >
           Source Code
         </a>
