@@ -8,7 +8,7 @@ export function bot(pile: Pile, player: Player): Card | undefined {
   if (visibleHand !== undefined) {
     const playable = playableCards(pile);
     const choice = visibleHand.filter((card) =>
-      playable.some((playableCard) => getRank(playableCard) === getRank(card))
+      playable.some((playableCard) => getRank(playableCard) === getRank(card)),
     );
     if (!choice.length) return;
     return choice[Math.floor(Math.random() * choice.length)];

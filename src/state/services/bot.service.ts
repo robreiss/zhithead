@@ -1,35 +1,104 @@
-import { ContextFrom, EventFrom, InvokeCreator } from "xstate";
+import { ActorRef, Snapshot, sendTo, setup } from "xstate";
 import { bot } from "../../bot";
-import { zhitheadModel } from "../machines/zhithead.machine";
+import { Card, Pile, Player } from "../../lib";
 
 const MIN_DELAY = 450;
 const MAX_DELAY = 750;
 
-export function createBotService(): InvokeCreator<
-  ContextFrom<typeof zhitheadModel>,
-  EventFrom<typeof zhitheadModel>
-> {
-  return () => (callback, onReceive) => {
-    let id: ReturnType<typeof delayedTimeout>;
+type PlayerEvents =
+  | { type: "CARD_CHOSEN"; card?: Card; n?: number }
+  | { type: "ASK_PICK_CARD"; pile: Pile; player: Player };
 
-    // TODO: How to get correct typing here?
-    onReceive((e) => {
-      if (e.type === "ASK_PICK_CARD") {
-        id = delayedTimeout(MIN_DELAY, MAX_DELAY, () =>
-          callback({
-            type: "CARD_CHOSEN",
-            card: bot(e.pile, e.player),
-            n: undefined,
-          })
-        );
-      }
-    });
+type ParentActor = ActorRef<Snapshot<unknown>, PlayerEvents>;
 
-    return () => clearTimeout(id);
-  };
-}
+const botMachine = setup({
+  types: {
+    context: {} as {
+      parentRef: ParentActor;
+    },
+    input: {} as {
+      parentRef: ParentActor;
+    },
+  },
+  actions: {
+    chooseCard: ({ event }) => {
+      const chosenCard = bot(event.pile, event.player);
+      return sendTo("parent", {
+        type: "CARD_CHOSEN",
+        card: chosenCard,
+        n: undefined,
+      });
+    },
+  },
+  delays: {
+    DELAY: () =>
+      MIN_DELAY + Math.floor(Math.random() * (MAX_DELAY - MIN_DELAY)),
+  },
+}).createMachine({
+  context: ({ input: { parentRef } }) => ({ parentRef }),
+  id: "bot",
+  initial: "idle",
+  states: {
+    idle: {
+      on: {
+        ASK_PICK_CARD: { target: "thinking" },
+      },
+    },
+    thinking: {
+      after: {
+        DELAY: {
+          target: "choosing",
+          actions: "chooseCard",
+        },
+      },
+    },
+    choosing: {
+      type: "final",
+    },
+  },
+});
 
-function delayedTimeout(low: number, high: number, cb: () => void) {
-  const timeout = low + Math.floor(Math.random() * (high - low));
-  return setTimeout(cb, timeout);
-}
+export default botMachine;
+
+// export const createBotMachine = (context: ZhitheadContext) =>
+//   createMachine(
+//     {
+//       id: "botMachine",
+//       initial: "idle",
+//       context,
+//       states: {
+//         idle: {
+//           on: {
+//             ASK_PICK_CARD: "thinking",
+//           },
+//         },
+//         thinking: {
+//           after: {
+//             DELAY: {
+//               target: "choosing",
+//               actions: "chooseCard",
+//             },
+//           },
+//         },
+//         choosing: {
+//           type: "final",
+//         },
+//       },
+//     },
+//     {
+//       actions: {
+//         chooseCard: ({ context, event }) => {
+//           const chosenCard = bot(event.pile, event.player);
+//           return sendTo("parent", {
+//             type: "CARD_CHOSEN",
+//             card: chosenCard,
+//             n: undefined,
+//           });
+//         },
+//       },
+//       delays: {
+//         DELAY: () =>
+//           MIN_DELAY + Math.floor(Math.random() * (MAX_DELAY - MIN_DELAY)),
+//       },
+//     },
+//   );

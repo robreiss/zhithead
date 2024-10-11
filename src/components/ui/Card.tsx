@@ -44,7 +44,7 @@ export default function Card(props: CardProps) {
           "select-none",
           !props.noShadow && "shadow-lg shadow-zinc-500/40 drop-shadow-xl",
           isFace && "rounded-lg border-white bg-white p-1",
-          props.withSelector && "rounded-b-lg rounded-t-none bg-white"
+          props.withSelector && "rounded-b-lg rounded-t-none bg-white",
         )}
         src={src}
       />
@@ -70,7 +70,7 @@ function Selector(props: {
           key={i}
           className={clsx(
             "w-full text-xs text-zinc-200 md:text-base",
-            n > props.selectorMax && "text-zinc-500"
+            n > props.selectorMax && "text-zinc-500",
           )}
           disabled={n > props.selectorMax}
         >

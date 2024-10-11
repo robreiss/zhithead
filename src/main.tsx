@@ -12,5 +12,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <App />
       </GlobalStateProvider>
     </BreakpointsProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

@@ -14,7 +14,7 @@ export default function Count(props: CountProps) {
         props.position === "top-left" && "-left-4 -top-4",
         props.position === "top-right" && "-right-4 -top-4",
         props.position === "bottom-left" && "-bottom-4 -left-4",
-        props.position === "bottom-right" && "-bottom-4 -right-4"
+        props.position === "bottom-right" && "-bottom-4 -right-4",
       )}
       style={{ zIndex: props.z ?? "unset" }}
     >

@@ -10,7 +10,7 @@ export default function Deck() {
   const globalServices = useContext(GlobalStateContext);
   const deck = useSelector(
     globalServices.zhitheadService,
-    (state) => state.context.deck
+    (state) => state.context.deck,
   );
   const hasDeck = Boolean(deck.length);
 
@@ -30,7 +30,7 @@ function Text(props: { withBg: boolean }) {
         className={clsx(
           "select-none rounded-lg text-xl font-semibold tracking-wide md:text-4xl md:font-bold md:tracking-wider",
           props.withBg && "bg-zinc-800/40 p-2 text-zinc-200",
-          !props.withBg && "text-zinc-600"
+          !props.withBg && "text-zinc-600",
         )}
       >
         DECK

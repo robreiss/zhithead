@@ -8,11 +8,11 @@ export default function HumanOffHand() {
   const { zhitheadService } = useContext(GlobalStateContext);
   const offHand = useSelector(
     zhitheadService,
-    (state) => state.context.human.offHand
+    (state) => state.context.human.offHand,
   );
   const isChoosingFaceUpCards = useSelector(
     zhitheadService,
-    isChoosingFaceUpCardsStor
+    isChoosingFaceUpCardsStor,
   );
 
   return createElement(OffHand, {

@@ -14,15 +14,15 @@ export default function Switcher(props: SwitcherProps) {
 
   const hand = useSelector(
     zhitheadService,
-    (state) => state.context[props.player].hand
+    (state) => state.context[props.player].hand,
   );
   const offHand = useSelector(
     zhitheadService,
-    (state) => state.context[props.player].offHand
+    (state) => state.context[props.player].offHand,
   );
   const shownHand = useSelector(
     zhitheadService,
-    (state) => state.context.shownHand[props.player]
+    (state) => state.context.shownHand[props.player],
   );
 
   const { send } = zhitheadService;

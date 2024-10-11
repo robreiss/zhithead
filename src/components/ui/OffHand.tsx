@@ -20,7 +20,7 @@ export default function OffHand(props: OffHandProps) {
   function sameRanksAmnt(card?: TCard): number {
     if (card === undefined) return 0;
     return props.offHand.faceUp.filter(
-      (hCard) => hCard !== undefined && getRank(hCard) === getRank(card)
+      (hCard) => hCard !== undefined && getRank(hCard) === getRank(card),
     ).length;
   }
 
@@ -71,12 +71,12 @@ export default function OffHand(props: OffHandProps) {
                   onCardPositionedClick(
                     props.offHand.faceUp[index]!,
                     index as Position,
-                    n
+                    n,
                   )
                 }
                 grayOut={props.grayOutFaceUpCard?.(
                   props.offHand.faceUp[index]!,
-                  index as Position
+                  index as Position,
                 )}
               />
             </div>

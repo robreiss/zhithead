@@ -1,21 +1,20 @@
-import { useInterpret } from "@xstate/react";
 import { createContext, PropsWithChildren, useEffect } from "react";
-import { InterpreterFrom } from "xstate";
+import { AnyActorRef, createActor } from "xstate";
 import { zhitheadMachine } from "../../state/machines/zhithead.machine";
 
 export const GlobalStateContext = createContext({
-  zhitheadService: {} as InterpreterFrom<typeof zhitheadMachine>,
+  zhitheadService: {} as AnyActorRef,
 });
 
 // Add this type declaration to extend the Window interface
 declare global {
   interface Window {
-    zhitheadService?: InterpreterFrom<typeof zhitheadMachine>;
+    zhitheadService?: AnyActorRef;
   }
 }
 
 export default function GlobalStateProvider(props: PropsWithChildren) {
-  const zhitheadService = useInterpret(zhitheadMachine);
+  const zhitheadService = createActor(zhitheadMachine).start();
 
   useEffect(() => {
     // Attach zhitheadService to the window object

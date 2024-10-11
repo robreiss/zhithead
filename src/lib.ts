@@ -78,7 +78,7 @@ export type Pile = Cards;
 
 export function createDeck(): Deck {
   return createSuites().flatMap((suite) =>
-    createRanks().map((rank) => createCard(suite, rank))
+    createRanks().map((rank) => createCard(suite, rank)),
   );
 }
 
@@ -95,7 +95,7 @@ export function isPileBurnable(pile: Readonly<Pile>): boolean {
 export type OffHandCards = [Card?, Card?, Card?];
 
 export function asCards(
-  cards: Readonly<OffHandCards> | Readonly<Cards>
+  cards: Readonly<OffHandCards> | Readonly<Cards>,
 ): Cards {
   return cards.filter((card) => card !== undefined) as Cards;
 }
@@ -121,7 +121,7 @@ export function makePlayer(): Player {
 export function totalCards(player: Player) {
   return HandKinds.map((handKind) => playerHandLen(player, handKind)).reduce(
     (sum, len) => sum + len,
-    0
+    0,
   );
 }
 
@@ -158,14 +158,14 @@ export function dealCards(deck: Readonly<Deck>): [Deck, Player] {
   const player = makePlayer();
   player.hand = deckCopy.splice(-STARTING_HAND_SIZE);
   player.offHand.faceDown = deckCopy.splice(
-    -STARTING_FACEDOWN_SIZE
+    -STARTING_FACEDOWN_SIZE,
   ) as OffHandCards;
   return [deckCopy, player];
 }
 
 export function dealCardsFor(
   playerCount: number,
-  deck: Readonly<Deck>
+  deck: Readonly<Deck>,
 ): [Deck, Player[]] {
   let newDeck = deck.slice();
   const players = [];

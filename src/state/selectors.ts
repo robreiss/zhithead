@@ -1,16 +1,18 @@
 import { StateFrom } from "xstate";
-import { zhitheadMachine } from "./machines/zhithead.machine";
+import { zhitheadMachine } from "../state/machines/zhithead.machine";
 
-interface Selector {
-  (state: StateFrom<typeof zhitheadMachine>): boolean;
-}
+type Selector<T> = (state: StateFrom<typeof zhitheadMachine>) => T;
 
-export const isChoosingFaceUpCardsStor: Selector = (state) =>
-  state.matches("choosingFaceUpCards");
+export const isChoosingFaceUpCardsStor: Selector<boolean> = (state) =>
+  state.matches("choosingFaceUpCards" as never);
 
-export const isPlayingStor: Selector = (state) => state.matches("playing");
+export const isPlayingStor: Selector<boolean> = (state) =>
+  state.matches("playing" as never);
 
-export const isGameOverStor: Selector = (state) =>
-  ["won", "lost"].some(state.matches);
-export const hasWonStor: Selector = (state) => state.matches("won");
-export const hasLostStor: Selector = (state) => state.matches("lost");
+export const isGameOverStor: Selector<boolean> = (state) =>
+  state.matches("won" as never) || state.matches("lost" as never);
+
+export const hasWonStor: Selector<boolean> = (state) =>
+  state.matches("won" as never);
+export const hasLostStor: Selector<boolean> = (state) =>
+  state.matches("lost" as never);

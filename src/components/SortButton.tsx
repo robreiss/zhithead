@@ -9,7 +9,7 @@ export default function SortButton() {
   const { send } = zhitheadService;
   const handLength = useSelector(
     zhitheadService,
-    (state) => state.context.human.hand.length
+    (state) => state.context.human.hand.length,
   );
 
   return (

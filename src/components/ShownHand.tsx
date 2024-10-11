@@ -18,20 +18,20 @@ export default function ShownHand(props: ShownHandProps) {
   const isPlaying = useSelector(zhitheadService, isPlayingStor);
   const isChoosingFaceUpCards = useSelector(
     zhitheadService,
-    isChoosingFaceUpCardsStor
+    isChoosingFaceUpCardsStor,
   );
 
   const shownHand = useSelector(
     zhitheadService,
-    (state) => state.context.shownHand[props.player]
+    (state) => state.context.shownHand[props.player],
   );
   const hand = useSelector(
     zhitheadService,
-    (state) => state.context[props.player].hand
+    (state) => state.context[props.player].hand,
   );
   const offHand = useSelector(
     zhitheadService,
-    (state) => state.context[props.player].offHand
+    (state) => state.context[props.player].offHand,
   );
   const pile = useSelector(zhitheadService, (state) => state.context.pile);
 
@@ -48,7 +48,7 @@ export default function ShownHand(props: ShownHandProps) {
         className={clsx(
           "absolute h-card-height w-full",
           shownHand === "hand" && (flipped ? "-top-5" : "-bottom-2.5"),
-          shownHand === "offhand" && (flipped ? "top-20" : "bottom-20")
+          shownHand === "offhand" && (flipped ? "top-20" : "bottom-20"),
         )}
       >
         {shownHand === "hand" && (

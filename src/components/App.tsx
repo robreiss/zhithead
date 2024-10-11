@@ -1,19 +1,19 @@
 import { useSelector } from "@xstate/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useContext, useEffect, useState } from "react";
-import Deck from "./Deck";
-import { GlobalStateContext } from "./providers/GlobalStateProvider";
-import HumanOffHand from "./HumanOffHand";
-import Pile from "./Pile";
-import ShownHand from "./ShownHand";
-import Switcher from "./Switcher";
 import {
   isChoosingFaceUpCardsStor,
   isGameOverStor,
   isPlayingStor,
 } from "../state/selectors";
-import SortButton from "./SortButton";
+import Deck from "./Deck";
+import HumanOffHand from "./HumanOffHand";
+import Pile from "./Pile";
+import { GlobalStateContext } from "./providers/GlobalStateProvider";
 import ResultOverlay from "./ResultOverlay";
+import ShownHand from "./ShownHand";
+import SortButton from "./SortButton";
+import Switcher from "./Switcher";
 import TitleScreenOverlay from "./TitleScreenOverlay";
 
 export default function App() {
@@ -21,7 +21,7 @@ export default function App() {
   const isPlaying = useSelector(zhitheadService, isPlayingStor);
   const isChoosingFaceUpCards = useSelector(
     zhitheadService,
-    isChoosingFaceUpCardsStor
+    isChoosingFaceUpCardsStor,
   );
   const isGameOver = useSelector(zhitheadService, isGameOverStor);
 

@@ -2,12 +2,12 @@ import { useSelector } from "@xstate/react";
 import { AnimatePresence, motion, TargetAndTransition } from "framer-motion";
 import { useContext } from "react";
 import { getRank, Rank, Card as TCard } from "../lib";
+import { BreakpointsContext } from "./providers/BreakpointsProvider";
+import { GlobalStateContext } from "./providers/GlobalStateProvider";
 import Card from "./ui/Card";
 import CardHolder from "./ui/CardHolder";
 import Count from "./ui/Count";
-import { GlobalStateContext } from "./providers/GlobalStateProvider";
 import Fire from "./ui/Fire";
-import { BreakpointsContext } from "./providers/BreakpointsProvider";
 
 export default function Pile() {
   const { zhitheadService } = useContext(GlobalStateContext);
@@ -22,7 +22,7 @@ export default function Pile() {
     const is8 = getRank(card) === Rank.Num8;
     const firstNon8AfterCard = pile
       .slice(pile.indexOf(card)! + 1)
-      .find((card) => getRank(card) !== Rank.Num8);
+      .find((card: TCard) => getRank(card) !== Rank.Num8);
     const shouldAnimate = is8 && firstNon8AfterCard === undefined;
 
     return {
@@ -38,7 +38,7 @@ export default function Pile() {
 
   return (
     <CardHolder>
-      {pile.map((card) => (
+      {pile.map((card: TCard) => (
         <motion.div
           className="absolute"
           key={card}
